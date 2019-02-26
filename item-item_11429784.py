@@ -39,14 +39,9 @@ numpy_matrix = df.values
 #%%
 # wrangle the data using pandas
 ## note: np.nan = NaN "not a number" which is basically null
-play = pd.Series([1,2,3])
-df[:]
-x1 = df[0:1].values
-x2 = df[1:2].values
-type(x1)
+'''Calculate cos_sim of first two rows on actual dataset'''
+x1 = numpy_matrix[0]
+x2 = numpy_matrix[1] 
 cos_sim(x1,x2)
-
-#%%
-type(user_1)
 
 #%%
