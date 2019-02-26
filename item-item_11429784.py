@@ -32,3 +32,21 @@ user_3 = np.array([2,0,1,3,0,4])
 print(cos_sim(user_1, user_2))
 print(cos_sim(user_1,user_3))
 print(cos_sim(user_2,user_3))
+
+#%% convert df into numpy array
+numpy_matrix = df.values
+
+#%%
+# wrangle the data using pandas
+## note: np.nan = NaN "not a number" which is basically null
+play = pd.Series([1,2,3])
+df[:]
+x1 = df[0:1].values
+x2 = df[1:2].values
+type(x1)
+cos_sim(x1,x2)
+
+#%%
+type(user_1)
+
+#%%
