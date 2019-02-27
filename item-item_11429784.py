@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 import math as mth
 from sklearn.metrics.pairwise import cosine_similarity
+from itertools import combinations
+
 
 #%% define dataset
 df = pd.read_csv("/Users/troy/WSU_SPRING_2019/DATA_MINING/hw2/Item to Item Collaborative Filtering/similaritymatrixdebugginginformation.csv")
@@ -36,7 +38,19 @@ print(cos_sim(user_2,user_3))
 #%%
 '''Append 3 users into df'''
 users = pd.DataFrame(data=(user_1,user_2,user_3))
-users
+users = users.to_numpy()
+#%%
+print(users[:,[0]])
+#%%
+i = 0
+for pair in combinations(users[:,],2):
+    x1 = pair[0]
+    x2 = pair[1]
+    print('array{} and type {}'.format(x1,type(x1)))
+    print(x2)
+    print(i)
+    i+=1
+#%%
 
 #%% convert df into numpy array
 numpy_matrix = df.to_numpy()
