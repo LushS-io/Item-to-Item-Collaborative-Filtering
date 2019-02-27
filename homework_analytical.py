@@ -48,6 +48,13 @@ for pair in combinations(users[:,],2):
     x2 = pair[1]
     print(cos_sim(x1,x2))
 
+#%% test 
+sample_cos_sim_correct_results = cosine_similarity(users)
+sample_cos_sim_correct_results
+
+#%% do with lamba apply
+combos = combinations(users[:,],2) 
+# test['cos_sim'] = combinations(users[:,],2).apply(lambda row: cos_sim(row[0],row[1]))
 #%% convert df into numpy array
 numpy_matrix = df.to_numpy()
 # pd.__version__
