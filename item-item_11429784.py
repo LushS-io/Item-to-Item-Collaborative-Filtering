@@ -34,7 +34,10 @@ print(cos_sim(user_1,user_3))
 print(cos_sim(user_2,user_3))
 
 #%% convert df into numpy array
-numpy_matrix = df.values
+numpy_matrix = df.to_numpy()
+# pd.__version__
+# to_numpy is better to use than df.values as it will soon be depreciated
+
 
 #%%
 # wrangle the data using pandas
@@ -44,4 +47,4 @@ x1 = numpy_matrix[0]
 x2 = numpy_matrix[1] 
 cos_sim(x1,x2)
 
-#%%
+
