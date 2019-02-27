@@ -61,14 +61,18 @@ print(check2)
 
 #%% check
 print(df_np_small)
-#%%
+#%% print numpy array
 for row in np_small:
     rating = row[0]
     movie = row[1]
     print(rating)
     print(movie)
-    # print(cos_sim(rating,movie))
 
+#%%
+for pair in combinations(np_small[:,],2):
+    x1 = pair[0]
+    x2 = pair[1]
+    print(cos_sim(x1,x2))
 
 # group_by movie id -> then put ratings for group into a list
 # run cosine similarity on combinations based on movie_id
