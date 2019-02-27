@@ -10,3 +10,5 @@ from dfply import *
 links = pd.read_csv("./movie-lens-data/links.csv")
 movies = pd.read_csv("./movie-lens-data/movies.csv")
 ratings = pd.read_csv("./movie-lens-data/ratings.csv")
+tags = pd.read_csv("./movie-lens-data/tags.csv")
+
