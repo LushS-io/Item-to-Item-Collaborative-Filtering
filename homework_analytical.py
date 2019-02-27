@@ -1,3 +1,4 @@
+# Homework 2 analytical for cs315 
 #%% Import
 import pandas as pd
 import numpy as np
