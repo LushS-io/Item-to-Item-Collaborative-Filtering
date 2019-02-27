@@ -7,6 +7,13 @@ from itertools import combinations
 from dfply import *
 from sklearn.metrics import pairwise_distances
 from scipy.spatial.distance import cosine
+#%% function for cosine similarity
+"""Takes 2 vectors a, b and returns the cosine similarity according to the definition of the dot product"""
+def cos_sim(a, b):
+    dot_product = np.dot(a,b)
+    norm_a = np.linalg.norm(a)
+    norm_b = np.linalg.norm(b)
+    return dot_product / (norm_a * norm_b)
 
 #%% import datasets
 links = pd.read_csv("./movie-lens-data/links.csv")
@@ -19,6 +26,7 @@ print(list(movies.columns.values)) #another way to list
 print(list(ratings))
 print(list(links))
 print(list(tags))
+
 
 #%% join movies and ratings
 # movies.join(other=ratings,on='movieId',lsuffix="_movies",rsuffix="_ratings")
@@ -35,6 +43,7 @@ new = new[:100]
 new.shape
 #%%
 dist_out = 1-pairwise_distances(new, metric="cosine")
+test = cos_sim(new[0],new[1])
 #%%
-
+dist_out
 #%%
