@@ -12,3 +12,10 @@ movies = pd.read_csv("./movie-lens-data/movies.csv")
 ratings = pd.read_csv("./movie-lens-data/ratings.csv")
 tags = pd.read_csv("./movie-lens-data/tags.csv")
 
+#%% list attributes
+print(list(links))
+print(list(movies.columns.values)) #another way to list
+print(list(ratings))
+print(list(tags))
+
+#%%
