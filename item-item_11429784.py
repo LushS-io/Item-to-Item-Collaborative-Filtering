@@ -4,7 +4,7 @@ import numpy as np
 import math as mth
 from sklearn.metrics.pairwise import cosine_similarity
 from itertools import combinations
-
+from dfply import *
 
 #%% define dataset
 df = pd.read_csv("/Users/troy/WSU_SPRING_2019/DATA_MINING/hw2/Item to Item Collaborative Filtering/similaritymatrixdebugginginformation.csv")
