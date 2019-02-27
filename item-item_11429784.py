@@ -58,3 +58,18 @@ check2 = cosine_similarity(df_np_small)
 print(check)
 print('\n')
 print(check2)
+
+#%% check
+print(df_np_small)
+#%%
+for row in np_small:
+    rating = row[0]
+    movie = row[1]
+    print(rating)
+    print(movie)
+    # print(cos_sim(rating,movie))
+
+
+# group_by movie id -> then put ratings for group into a list
+# run cosine similarity on combinations based on movie_id
+#%%
