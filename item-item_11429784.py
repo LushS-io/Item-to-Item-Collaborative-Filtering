@@ -57,6 +57,12 @@ numpy_matrix = df.to_numpy()
 # wrangle the data using pandas
 ## note: np.nan = NaN "not a number" which is basically null
 '''Calculate cos_sim of first two rows on actual dataset'''
-x1 = numpy_matrix[0]
-x2 = numpy_matrix[1] 
-cos_sim(x1,x2)
+for pair in combinations(numpy_matrix[:,],2):
+    x1 = pair[0]
+    x2 = pair[1]
+    print(cos_sim(x1,x2))
+
+#%%
+
+
+#%%
