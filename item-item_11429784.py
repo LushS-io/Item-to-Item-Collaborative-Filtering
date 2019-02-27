@@ -18,4 +18,8 @@ print(list(movies.columns.values)) #another way to list
 print(list(ratings))
 print(list(tags))
 
+#%% join movies and ratings
+# movies.join(other=ratings,on='movieId',lsuffix="_movies",rsuffix="_ratings")
+df = pd.merge(movies,ratings, on='movieId', how='outer')
+
 #%%
