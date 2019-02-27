@@ -1,7 +1,7 @@
 #%% Import
 import pandas as pd
 import numpy as np
-from math import exp, sqrt, pow
+import math as mth
 from sklearn.metrics.pairwise import cosine_similarity
 
 #%% define dataset
@@ -33,6 +33,11 @@ print(cos_sim(user_1, user_2))
 print(cos_sim(user_1,user_3))
 print(cos_sim(user_2,user_3))
 
+#%%
+'''Append 3 users into df'''
+users = pd.DataFrame(data=(user_1,user_2,user_3))
+users
+
 #%% convert df into numpy array
 numpy_matrix = df.to_numpy()
 # pd.__version__
@@ -46,5 +51,3 @@ numpy_matrix = df.to_numpy()
 x1 = numpy_matrix[0]
 x2 = numpy_matrix[1] 
 cos_sim(x1,x2)
-
-
