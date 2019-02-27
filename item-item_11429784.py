@@ -42,26 +42,19 @@ df_mov_rat.shape
 type(df_mov_rat )
 
 #%% cut down to sample dataset put into nparray since faster
-np_small = df_mov_rat.iloc[0:10,:]
-np_small = np_small.to_numpy()
+df_np_small = df_mov_rat.iloc[0:10,:]
+np_small = df_np_small.to_numpy()
 # type(np_small)
 np_small.shape
 #%% check
 print(np_small)
+print(df_np_small)
 #%% run
 for row in np.nditer(np_small):
     print(row)
 #%% to check algorithm run pairwise cosine from sklearn
 check = cosine_similarity(np_small)
+check2 = cosine_similarity(df_np_small)
 print(check)
-#%%
-print(np_small['rating'])
-list(np_small)
-#%%
-for a in np.nditer(x):
-    print(a)
-
-#%%
-
-# group_by movie id -> then put ratings for group into a list
-# run cosine similarity on combinations based on movie_id
+print('\n')
+print(check2)
