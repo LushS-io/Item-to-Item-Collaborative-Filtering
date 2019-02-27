@@ -42,15 +42,10 @@ users = users.to_numpy()
 #%%
 print(users[:,[0]])
 #%%
-i = 0
 for pair in combinations(users[:,],2):
     x1 = pair[0]
     x2 = pair[1]
-    print('array{} and type {}'.format(x1,type(x1)))
-    print(x2)
-    print(i)
-    i+=1
-#%%
+    print(cos_sim(x1,x2))
 
 #%% convert df into numpy array
 numpy_matrix = df.to_numpy()
