@@ -55,6 +55,7 @@ sample_cos_sim_correct_results
 
 #%% do with lamba apply
 combos = combinations(users[:,],2) 
+type(combos)
 # test['cos_sim'] = combinations(users[:,],2).apply(lambda row: cos_sim(row[0],row[1]))
 #%% convert df into numpy array
 numpy_matrix = df.to_numpy()
@@ -74,14 +75,10 @@ for pair in combinations(numpy_matrix[:,],2):
 
 #%%
 users
-#%% adds up the entire row or col of numpy array
-np_arr_play = np.apply_along_axis(func1d=sum,axis=0,arr=users)
+#%% adds up the entire or col of numpy array
+np_arr_play = np.apply_along_axis(func1d=sum,axis=1,arr=users)
 print(np_arr_play)
 
-#%% pandas df
-
-
-#%%
-
-
-#%%
+#%% pandas df add col 1 and col 2 for each row
+df_play = df_users.apply(lambda row: row[0] + row[1],axis=1) 
+print(df_play)
