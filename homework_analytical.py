@@ -39,6 +39,7 @@ print(cos_sim(user_2,user_3))
 #%%
 '''Append 3 users into df'''
 users = pd.DataFrame(data=(user_1,user_2,user_3))
+df_users = users
 users = users.to_numpy()
 #%%
 print(users[:,[0]])
@@ -69,6 +70,16 @@ for pair in combinations(numpy_matrix[:,],2):
     x1 = pair[0]
     x2 = pair[1]
     print(cos_sim(x1,x2))
+
+
+#%%
+users
+#%% adds up the entire row or col of numpy array
+np_arr_play = np.apply_along_axis(func1d=sum,axis=0,arr=users)
+print(np_arr_play)
+
+#%% pandas df
+
 
 #%%
 
