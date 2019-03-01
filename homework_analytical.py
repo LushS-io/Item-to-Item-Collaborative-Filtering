@@ -9,18 +9,6 @@ from dfply import *
 from itertools import starmap
 import scipy as scipy
 import time as time 
-
-#%% define dataset
-df = pd.read_csv("/Users/troy/WSU_SPRING_2019/DATA_MINING/hw2/Item to Item Collaborative Filtering/similaritymatrixdebugginginformation.csv")
-df = df.drop(['Unnamed: 0'],axis=1) #remove first column
-# side note: axis=0 => row
-#            axis=1 => column 
-
-#%%
-'''Test personal results against sklearn'''
-cos_sim_correct_results = cosine_similarity(df)
-print(cos_sim_correct_results)
-
 #%%
 """Takes 2 vectors a, b and returns the cosine similarity according to the definition of the dot product"""
 def cos_sim(a, b):
