@@ -40,6 +40,7 @@ list(df)
 df_mov_rat = ratings[['rating','movieId']].copy()
 df_mov_rat.shape
 type(df_mov_rat )
+np_mov_rat = df_mov_rat.to_numpy()
 
 #%% cut down to sample dataset put into nparray since faster
 df_np_small = df_mov_rat.iloc[0:10,:]
@@ -76,4 +77,21 @@ for pair in combinations(np_small[:,],2):
 
 # group_by movie id -> then put ratings for group into a list
 # run cosine similarity on combinations based on movie_id
+#%%
+df.shape
+
+#%% check 3
+check3 = cosine_similarity(np_mov_rat)
+#%% the big guy
+the_win = np.array()
+
+for pair in combinations(np_mov_rat[:,],2):
+    x1 = pair[0]
+    x2 = pair[1]
+    np.append.(cos_sim(x1,x2))
+
+
+#%%
+
+
 #%%
