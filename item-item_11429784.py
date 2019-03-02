@@ -57,13 +57,15 @@ print(type(df_mov_rat)) #check type
 
 np_mov_rat = df_mov_rat.to_numpy() #create np array
 
+#%%
 #create combos
 start_time = time.time()
-np_combos_mov_rat = nd_combs(np_mov_rat,2,0)
+np_combos_mov_rat = nd_combs(np_mov_rat[0:2000,:],2,0)
+print(np_combos_mov_rat.shape)
 end_time=time.time()
 
 Run_time = end_time - start_time
-
+print(Run_time)
 #%% Create matrix 
 csr_matrix(())
 
