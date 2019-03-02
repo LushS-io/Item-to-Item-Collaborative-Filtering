@@ -5,8 +5,12 @@ import numpy as np
 import math as mth
 from itertools import combinations
 from dfply import *
+from scipy.sparse import csr_matrix
+
+#testing purposes
 from scipy.spatial.distance import cosine
 from sklearn.metrics.pairwise import cosine_similarity
+import time
 
 #%% function for cosine similarity
 """Takes 2 vectors a, b and returns the cosine similarity according to the definition of the dot product"""
@@ -15,6 +19,16 @@ def cos_sim(a, b):
     norm_a = np.linalg.norm(a)
     norm_b = np.linalg.norm(b)
     return dot_product / (norm_a * norm_b)
+
+def nd_combs(arr, r, axis=0):
+    arr = np.asarray(arr)
+    if axis < 0:
+        axis += arr.ndim
+    indices = np.arange(arr.shape[axis])
+    dt = np.dtype([('', np.intp)]*r)
+    indices = np.fromiter(combinations(indices, r), dt)
+    indices = indices.view(np.intp).reshape(-1, r)
+    return np.take(arr, indices, axis=axis)
 
 #%% import datasets
 links = pd.read_csv("./movie-lens-data/links.csv")
@@ -42,6 +56,16 @@ print(df_mov_rat.shape) #check shape
 print(type(df_mov_rat)) #check type
 
 np_mov_rat = df_mov_rat.to_numpy() #create np array
+
+#create combos
+start_time = time.time()
+np_combos_mov_rat = nd_combs(np_mov_rat,2,0)
+end_time=time.time()
+
+Run_time = end_time - start_time
+
+#%% Create matrix 
+csr_matrix(())
 
 #%% Create small subset to test on 
 df_np_small = df_mov_rat.iloc[0:10,:]
