@@ -8,7 +8,8 @@ from itertools import combinations
 from dfply import *
 from itertools import starmap
 import scipy as scipy
-import time as time 
+import time as time
+from scipy.sparse import csr_matrix
 #%%
 """Takes 2 vectors a, b and returns the cosine similarity according to the definition of the dot product"""
 def cos_sim(a, b):
@@ -16,6 +17,17 @@ def cos_sim(a, b):
     norm_a = np.linalg.norm(a)
     norm_b = np.linalg.norm(b)
     return dot_product / (norm_a * norm_b)
+
+
+def combs_nd(a, r, axis=0):
+    a = np.asarray(a)
+    if axis < 0:
+        axis += a.ndim
+    indices = np.arange(a.shape[axis])
+    dt = np.dtype([('', np.intp)]*r)
+    indices = np.fromiter(combinations(indices, r), dt)
+    indices = indices.view(np.intp).reshape(-1, r)
+    return np.take(a, indices, axis=axis)
 
 # dataset from hw 2
 user_1 = np.array([4,5,0,5,1,0]) 
@@ -26,14 +38,42 @@ user_3 = np.array([2,0,1,3,0,4])
 print(cos_sim(user_1, user_2))
 print(cos_sim(user_1,user_3))
 print(cos_sim(user_2,user_3))
-#%%
+#%% Create pd_df from array data
 '''Append 3 users into df'''
 users = pd.DataFrame(data=(user_1,user_2,user_3))
 df_users = users
-users = users.to_numpy()
-#%% sprase matrix
-sprase_matrix = scipy.sparse.csr_matrix(df_users.values)
-print(sprase_matrix)
+np_users = users.to_numpy()
+#%% sprase matrix from pd
+pd_sparse = scipy.sparse.csr_matrix(df_users.values)
+print("Check Validity\n\n{}\n\nThe Sparse Matrix\n{}".format(pd_sparse.check_format,pd_sparse))
+
+#%% sparse matrix from np
+np_sprase = scipy.sparse.csr_matrix(np_users)
+print("Check Validity\n\n{}\n\nThe Sparse Matrix\n{}".format(np_sprase.check_format,np_sprase))
+
+#%% get combos
+combos = combinations(np_users[:,],2) #get combos of np_array
+print("Getting combos...and type = {}".format(type(combos)))
+print("Look inside combos => \n")
+print(list(combos))
+print("Convert list into np.array")
+np_combos = np.array(list(combos))
+print("Here's the np_combos array...\n{}".format(np_combos))
+#%%
+type(np.array(list(combos))) # check combo to nparray convert
+np_combos = np.array(list(combos)) # set np combo array 
+sparseNPcombos = scipy.sparse.csr_matrix(np_combos)# to sprase_matrix
+# print(type(sparseNPcombos)) #check type
+# print(sparseNPcombos[:,:])#check 
+print(list(combos))
+#%% get combo for sparse
+# combo_sprase = combinations(sprase_matrix([:,[0]]))
+combo_sprase = combinations(sprase_matrix[:,[0]],2)
+print( np.array( list( combinations( combo_sprase[:,],2))))
+#%% play sparse matrix
+print(sprase_matrix[:,0] )
+#%% run cos_sim on csr_sparse()
+cos_sim(sprase_matrix())
 #%%
 print(users[:,[0]])
 #%%
