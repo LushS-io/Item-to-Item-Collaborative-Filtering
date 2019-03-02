@@ -43,6 +43,14 @@ print(cos_sim(user_2,user_3))
 users = pd.DataFrame(data=(user_1,user_2,user_3))
 df_users = users
 np_users = users.to_numpy()
+
+#%% test code
+print(cosine_similarity(np_users))
+x = combs_nd(np_users,2)
+# x[0,1]
+print('\n{}'.format(cos_sim(x[0,0],x[0,1])))
+
+
 #%% sprase matrix from pd
 pd_sparse = scipy.sparse.csr_matrix(df_users.values)
 print("Check Validity\n\n{}\n\nThe Sparse Matrix\n{}".format(pd_sparse.check_format,pd_sparse))
@@ -57,8 +65,9 @@ print("Getting combos...and type = {}".format(type(combos)))
 print("Look inside combos => \n")
 print(list(combos))
 print("Convert list into np.array")
-np_combos = np.array(list(combos))
+np_combos = np.asarray(list(combos))
 print("Here's the np_combos array...\n{}".format(np_combos))
+
 #%%
 type(np.array(list(combos))) # check combo to nparray convert
 np_combos = np.array(list(combos)) # set np combo array 
