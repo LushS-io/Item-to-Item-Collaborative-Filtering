@@ -18,6 +18,11 @@ def cos_sim(a, b):
     norm_b = np.linalg.norm(b)
     return dot_product / (norm_a * norm_b)
 
+def cos_sim_nd(x):
+    dot_product = np.dot(x[,0], x,[,1])
+    norm_a = np.linalg.norm(a)
+    norm_b = np.linalg.norm(b)
+    return dot_product / (norm_a * norm_b)
 
 def combs_nd(a, r, axis=0):
     a = np.asarray(a)
@@ -50,14 +55,22 @@ x = combs_nd(np_users,2)
 # x[0,1]
 print('\n{}'.format(cos_sim(x[0,0],x[0,1])))
 
+#%% sparse matrix from np
+np_sprase = scipy.sparse.csr_matrix(np_users)
+print("Check Validity\n\n{}\n\nThe Sparse Matrix\n{}".format(
+    np_sprase.check_format, np_sprase))
+
+# try on sparse matrix
+# cosine_similarity(np_sprase)
+cos_sim(x[0,0],x[0,1]) # okay it works on np array, now how to scale
+
+#%% play with np iterators
+
+
 
 #%% sprase matrix from pd
 pd_sparse = scipy.sparse.csr_matrix(df_users.values)
 print("Check Validity\n\n{}\n\nThe Sparse Matrix\n{}".format(pd_sparse.check_format,pd_sparse))
-
-#%% sparse matrix from np
-np_sprase = scipy.sparse.csr_matrix(np_users)
-print("Check Validity\n\n{}\n\nThe Sparse Matrix\n{}".format(np_sprase.check_format,np_sprase))
 
 #%% get combos
 combos = combinations(np_users[:,],2) #get combos of np_array
