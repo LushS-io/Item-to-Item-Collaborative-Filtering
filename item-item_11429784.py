@@ -36,18 +36,20 @@ df = pd.merge(movies,ratings, on='movieId', how='outer')
 #%% let's see merged df
 list(df)
 
-#%% we only need rating and movie id for first part
+#%% drop all features besides rating
 df_mov_rat = ratings[['rating','movieId']].copy()
-df_mov_rat.shape
-type(df_mov_rat )
-np_mov_rat = df_mov_rat.to_numpy()
+print(df_mov_rat.shape) #check shape
+print(type(df_mov_rat)) #check type
 
-#%% cut down to sample dataset put into nparray since faster
+np_mov_rat = df_mov_rat.to_numpy() #create np array
+
+#%% Create small subset to test on 
 df_np_small = df_mov_rat.iloc[0:10,:]
 np_small = df_np_small.to_numpy()
 # type(np_small)
 np_small.shape
-#%% check
+
+#%% Print to check test df 
 print(np_small)
 print(df_np_small)
 #%% run
