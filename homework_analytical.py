@@ -10,7 +10,7 @@ from itertools import starmap
 import scipy as scipy
 import time as time
 from scipy.sparse import csr_matrix
-#%%
+#%% Methods
 """Takes 2 vectors a, b and returns the cosine similarity according to the definition of the dot product"""
 def cos_sim(a, b):
     dot_product = np.dot(a,b)
@@ -18,8 +18,14 @@ def cos_sim(a, b):
     norm_b = np.linalg.norm(b)
     return dot_product / (norm_a * norm_b)
 
-def cos_sim_nd(x):
-    dot_product = np.dot(x[,0], x,[,1])
+def cos_sim_nd(nd_array,axis=0):
+    nd_array = np.array(nd_array)     
+    if axis < 0:
+        axis += a.ndim
+    indexs = np.arange(nd_array.shape[axis])
+    data_type = np.dtype()
+    dot_product = np.apply_along_axis()
+    dot_product = np.dot(nd_array,)
     norm_a = np.linalg.norm(a)
     norm_b = np.linalg.norm(b)
     return dot_product / (norm_a * norm_b)
@@ -34,26 +40,54 @@ def combs_nd(a, r, axis=0):
     indices = indices.view(np.intp).reshape(-1, r)
     return np.take(a, indices, axis=axis)
 
-# dataset from hw 2
-user_1 = np.array([4,5,0,5,1,0]) 
-user_2 = np.array([0,3,4,3,1,2])
-user_3 = np.array([2,0,1,3,0,4])
+def import_hw2data_to_pd_df ():
+    # dataset from hw 2
+    user_1 = np.array([4,5,0,5,1,0]) 
+    user_2 = np.array([0,3,4,3,1,2])
+    user_3 = np.array([2,0,1,3,0,4])
 
-# print combination of similarities
-print(cos_sim(user_1, user_2))
-print(cos_sim(user_1,user_3))
-print(cos_sim(user_2,user_3))
-#%% Create pd_df from array data
-'''Append 3 users into df'''
-users = pd.DataFrame(data=(user_1,user_2,user_3))
+    # print combination of similarities
+    print(cos_sim(user_1, user_2))
+    print(cos_sim(user_1,user_3))
+    print(cos_sim(user_2,user_3))
+    #%% Create pd_df from array data
+    '''Append 3 users into df'''
+    users = pd.DataFrame(data=(user_1,user_2,user_3))
+    return users
+
+#%% Create pandas and numpy df
+users = import_hw2data_to_pd_df()
 df_users = users
 np_users = users.to_numpy()
 
-#%% test code
+#%% playground
+
+x = np.array(range(18))
+x = np.reshape(x,(3,6))
+print(x)
+
+np.take(x, 0, 0)
+np.take(x, 1, 0)
+
+print(x.dtype)
+
+np_dot_prod = np.dot(x[0],x[1])
+a_norm = np.linalg.norm(x[0])
+
+print(a_norm)
+print(np_dot_prod)
+
+
+
+
+
+#%% playground 2
 print(cosine_similarity(np_users))
-x = combs_nd(np_users,2)
+NP_COMBO_TEST = combs_nd(np_users,2)
 # x[0,1]
 print('\n{}'.format(cos_sim(x[0,0],x[0,1])))
+np.take(x, 2, 0)
+# test_dot_product = np.dot(np.take(x,0,0),np.take(x,1,0))
 
 #%% sparse matrix from np
 np_sprase = scipy.sparse.csr_matrix(np_users)
@@ -65,8 +99,11 @@ print("Check Validity\n\n{}\n\nThe Sparse Matrix\n{}".format(
 cos_sim(x[0,0],x[0,1]) # okay it works on np array, now how to scale
 
 #%% play with np iterators
-
-
+y = np.asarray(x)
+row = np.arange(x.shape[0])
+col = np.arange(x.shape[1])
+print('index = {}'.format(col))
+# inx = np.fromiter(x,int)
 
 #%% sprase matrix from pd
 pd_sparse = scipy.sparse.csr_matrix(df_users.values)
