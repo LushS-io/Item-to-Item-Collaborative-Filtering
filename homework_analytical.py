@@ -102,6 +102,10 @@ total = end - start
 print(x)
 print(total)
 
+#%% do cos_sim
+
+
+
 
 #%%
 # df_play = df_users.apply(lambda x: mean_rating - x, axis=1)
@@ -215,34 +219,10 @@ for pair in combinations(numpy_matrix[:, ], 2):
     x2 = pair[1]
     print(cos_sim(x1, x2))
 
-# %%
-
-
+# %% still need to test
 def my_func(p):
     return np.sum(p)
-
-
-my_array = np.array(range(100))
-my_combin = np.array(tuple(combinations(my_array, 2)))
-my_result = [my_func(pair) for pair in my_combin]
-print(my_result)
-# %%
-users
-# %%
-df_users
-# %% adds up the entire or col of numpy array
-np_arr_play = np.apply_along_axis(func1d=sum, axis=1, arr=users)
-print(np_arr_play)
-
-# %% pandas df add col 1 and col 2 for each row
-df_play = df_users.apply(lambda x: mean_rating - x, axis=1)
-print(df_play)
-
-
-# %%
-# results = list(itertools.starmap(pow, [(2,5), (3,2), (10,3)]))
-results = starmap(pow, [(2, 5), (3, 2), (10, 3)])
-# %%
-results
-
-# %%
+    my_array = np.array(range(100))
+    my_combin = np.array(tuple(combinations(my_array, 2)))
+    my_result = [my_func(pair) for pair in my_combin]
+    print(my_result)
