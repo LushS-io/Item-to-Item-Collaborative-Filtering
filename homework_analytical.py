@@ -60,14 +60,10 @@ users = import_hw2data_to_pd_df()
 df_users = users
 np_users = users.to_numpy()
 
-# %% p1
+# %% Create CSR Sparse Matrix
 np_sprase = scipy.sparse.csr_matrix(np_users)
 print('before sparse\n{}'.format(users))
 print(np_sprase)
-
-# %%
-row_idx = np.arange(np_sprase.shape[0])
-print(row_idx)
 
 # %%
 np_array_sum = np_sprase.sum(axis=1)
@@ -94,19 +90,33 @@ Y = sps.csr_matrix((X.data - np.repeat(np_sparse_avg, nnz_per_row), X.indices, X
 print(Y.todense())
 
 #%%
-A = np.squeeze(np.asarray(x))
+# A = np.squeeze(np.asarray(x))
+A = Y.todense()
+combos = combs_nd(A,2)
+print(combos)
+for pair in combos:
+     x1 = pair[0]
+     x2 = pair[1]
+     print(cos_sim(x1, x2))
+
+#compare
+cosine_similarity(A)
 
 #%% do cos_sim
 combos = combs_nd(A,2)
 print(combos)
 
 
-# for pair in combos:
-#     x1 = pair[0]
-#     x2 = pair[1]
-#     print(cos_sim(x1, x2))
+for pair in combos:
+     x1 = pair[0]
+     x2 = pair[1]
+     print(cos_sim(x1, x2))
 
 
+for pair in combinations(A[:, ], 2):
+    x1 = pair[0]
+    x2 = pair[1]
+    print(cos_sim(x1, x2))
 
 
 
