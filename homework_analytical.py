@@ -20,20 +20,6 @@ def cos_sim(a, b):
     norm_b = np.linalg.norm(b)
     return dot_product / (norm_a * norm_b)
 
-
-def cos_sim_nd(nd_array, axis=0):
-    nd_array = np.array(nd_array)
-    if axis < 0:
-        axis += a.ndim
-    indexs = np.arange(nd_array.shape[axis])
-    data_type = np.dtype()
-    dot_product = np.apply_along_axis()
-    dot_product = np.dot(nd_array,)
-    norm_a = np.linalg.norm(a)
-    norm_b = np.linalg.norm(b)
-    return dot_product / (norm_a * norm_b)
-
-
 def combs_nd(a, r, axis=0):
     a = np.asarray(a)
     if axis < 0:
@@ -54,13 +40,18 @@ def import_hw2data_to_pd_df():
     user_5 = np.array([0,0,4,3,4,2,0,0,0,0,2,5])
     user_6 = np.array([1,0,3,0,3,0,0,2,0,0,4,0])
 
+    test_1 = np.array([4, 5, 0, 5, 1, 0])
+    test_2 = np.array([0, 3, 4, 3, 1, 2])
+    test_3 = np.array([2, 0, 1, 3, 0, 4])
+
     # print combination of similarities
     print(cos_sim(user_1, user_2))
     print(cos_sim(user_1, user_3))
     print(cos_sim(user_2, user_3))
     # %% Create pd_df from array data
     '''Append 3 users into df'''
-    users = pd.DataFrame(data=(user_1, user_2, user_3,user_4,user_5,user_6))
+    # users = pd.DataFrame(data=(user_1, user_2, user_3,user_4,user_5,user_6))
+    users = pd.DataFrame(data=(test_1, test_2, test_3))
     return users
 
 
@@ -91,18 +82,65 @@ np_sparse_avg = sums/counts
 
 print(np_sparse_avg)
 print(type(np_sparse_avg))
+
+#%% normalize 
+X = np_sprase
+nnz_per_row = np.diff(X.indptr)
+print(nnz_per_row)
+
+#%%
+Y = sps.csr_matrix((X.data - np.repeat(np_sparse_avg, nnz_per_row), X.indices, X.indptr),
+                   shape=X.shape)
+print(Y.todense())
+
+#%%
+A = np.squeeze(np.asarray(x))
+
+#%% do cos_sim
+combos = combs_nd(A,2)
+print(combos)
+
+
+# for pair in combos:
+#     x1 = pair[0]
+#     x2 = pair[1]
+#     print(cos_sim(x1, x2))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #%% subtract mean from values
 print(np_sprase.toarray().shape)
 print(np_sparse_avg.shape)
-x = np_sprase - np_sparse_avg[:,None]
 
+tuh = (np_sprase[np_sprase > 0]) #return index arr where statement true
+print(tuh)
+# x = np_sprase[tuh] # apply - np_sparse_avg to locatins where true
+
+# x = np_sprase - np_sparse_avg[:,None]
+
+
+#%%
 start = time.time()
 x[x < 0] = 0 # 1 method
 #x = x.clip(min=0) # method 2
 end = time.time()
 total = end - start
-
 print(x)
+
+#%% convert into ndarray
 print(total)
 print(type(x))
 A = np.squeeze(np.asarray(x))
@@ -111,15 +149,12 @@ print(type(A))
 xA = lambda a, b: cos_sim(a,b)
 xB = np.arange(72).reshape((6, 12))
 
-print(cos_sim(xB[0],xB[1]))
+combos = combs_nd(A,2)
 
-# lal  = xA(xB[0],)
-
-# for pair in combinations(numpy_matrix[:, ], 2):
-#     x1 = pair[0]
-#     x2 = pair[1]
-#     print(cos_sim(x1, x2)
-
+for pair in combos:
+    x1 = pair[0]
+    x2 = pair[1]
+    print(cos_sim(x1, x2))
 #%%
 # df_play = df_users.apply(lambda x: mean_rating - x, axis=1)
 
