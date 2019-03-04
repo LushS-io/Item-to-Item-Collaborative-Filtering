@@ -47,9 +47,12 @@ def combs_nd(a, r, axis=0):
 
 def import_hw2data_to_pd_df():
     # dataset from hw 2
-    user_1 = np.array([4, 5, 0, 5, 1, 0])
-    user_2 = np.array([0, 3, 4, 3, 1, 2])
-    user_3 = np.array([2, 0, 1, 3, 0, 4])
+    user_1 = np.array([1,0,3,0,0,5,0,0,5,0,4,0])
+    user_2 = np.array([0,0,5,4,0,0,4,0,0,2,1,3])
+    user_3 = np.array([2,4,0,1,2,0,3,0,4,3,5,0])
+    user_4 = np.array([0,2,4,0,5,0,0,4,0,0,2,0])
+    user_5 = np.array([0,0,4,3,4,2,0,0,0,0,2,5])
+    user_6 = np.array([1,0,3,0,3,0,0,2,0,0,4,0])
 
     # print combination of similarities
     print(cos_sim(user_1, user_2))
@@ -57,7 +60,7 @@ def import_hw2data_to_pd_df():
     print(cos_sim(user_2, user_3))
     # %% Create pd_df from array data
     '''Append 3 users into df'''
-    users = pd.DataFrame(data=(user_1, user_2, user_3))
+    users = pd.DataFrame(data=(user_1, user_2, user_3,user_4,user_5,user_6))
     return users
 
 
@@ -103,7 +106,6 @@ print(x)
 print(total)
 
 #%% do cos_sim
-
 
 
 
