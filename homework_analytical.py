@@ -108,6 +108,17 @@ print(type(x))
 A = np.squeeze(np.asarray(x))
 print(type(A))
 #%% do cos_sim
+xA = lambda a, b: cos_sim(a,b)
+xB = np.arange(72).reshape((6, 12))
+
+print(cos_sim(xB[0],xB[1]))
+
+# lal  = xA(xB[0],)
+
+# for pair in combinations(numpy_matrix[:, ], 2):
+#     x1 = pair[0]
+#     x2 = pair[1]
+#     print(cos_sim(x1, x2)
 
 #%%
 # df_play = df_users.apply(lambda x: mean_rating - x, axis=1)
