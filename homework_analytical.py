@@ -80,13 +80,27 @@ np_array_sum = np_sprase.sum(axis=1)
 print(np_array_sum.shape)
 print(np_array_sum)
 
-# %%
+# %% get mean of each row
 (x, y, z) = scipy.sparse.find(np_sprase)
 counts = np.bincount(x)
 sums = np.bincount(x, weights=z)
 np_sparse_avg = sums/counts
 
 print(np_sparse_avg)
+
+#%% subtract mean from values
+print(np_sprase.toarray().shape)
+print(np_sparse_avg.shape)
+x = np_sprase - np_sparse_avg[:,None]
+
+start = time.time()
+x[x < 0] = 0 # 1 method
+#x = x.clip(min=0) # method 2
+end = time.time()
+total = end - start
+
+print(x)
+print(total)
 
 
 #%%
