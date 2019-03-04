@@ -76,16 +76,15 @@ print(np_sparse_avg)
 '''check type'''
 print(type(np_sparse_avg))
 
-#%% normalize 
+#%% normalize matrix
 X = np_sprase
 nnz_per_row = np.diff(X.indptr)
+
 print(nnz_per_row)
 
-#%%
 Y = sps.csr_matrix((X.data - np.repeat(np_sparse_avg, nnz_per_row), X.indices, X.indptr),
                    shape=X.shape)
 print(Y.todense())
-
 #%%
 # A = np.squeeze(np.asarray(x))
 A = Y.todense()
