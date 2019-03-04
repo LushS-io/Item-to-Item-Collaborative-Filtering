@@ -90,7 +90,7 @@ sums = np.bincount(x, weights=z)
 np_sparse_avg = sums/counts
 
 print(np_sparse_avg)
-
+print(type(np_sparse_avg))
 #%% subtract mean from values
 print(np_sprase.toarray().shape)
 print(np_sparse_avg.shape)
@@ -104,10 +104,10 @@ total = end - start
 
 print(x)
 print(total)
-
+print(type(x))
+A = np.squeeze(np.asarray(x))
+print(type(A))
 #%% do cos_sim
-
-
 
 #%%
 # df_play = df_users.apply(lambda x: mean_rating - x, axis=1)
