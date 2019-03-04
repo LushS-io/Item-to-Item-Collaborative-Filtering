@@ -71,7 +71,9 @@ counts = np.bincount(x)
 sums = np.bincount(x, weights=z)
 np_sparse_avg = sums/counts
 
+'''check avg'''
 print(np_sparse_avg)
+'''check type'''
 print(type(np_sparse_avg))
 
 #%% normalize 
