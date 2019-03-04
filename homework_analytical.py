@@ -65,11 +65,6 @@ np_sprase = scipy.sparse.csr_matrix(np_users)
 print('before sparse\n{}'.format(users))
 print(np_sprase)
 
-# %%
-np_array_sum = np_sprase.sum(axis=1)
-print(np_array_sum.shape)
-print(np_array_sum)
-
 # %% get mean of each row
 (x, y, z) = scipy.sparse.find(np_sprase)
 counts = np.bincount(x)
