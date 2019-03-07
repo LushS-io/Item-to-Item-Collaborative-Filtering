@@ -11,6 +11,7 @@ import scipy as scipy
 import time as time
 from scipy.sparse import csr_matrix
 import scipy.sparse as sps
+import itertools as iter
 # %% Methods
 """Takes 2 vectors a, b and returns the cosine similarity according to the definition of the dot product"""
 
@@ -86,6 +87,26 @@ print(nnz_per_row)
 Y = sps.csr_matrix((X.data - np.repeat(np_sparse_avg, nnz_per_row), X.indices, X.indptr),
                    shape=X.shape)
 print(Y.todense())
+print()
+print(Y.T.todense())
+
+#%% section D 
+yah = Y.todense()
+print(yah)
+print(cos_sim(yah[0],yah[1].T))
+print(cos_sim(yah[0], yah[2].T))
+print(cos_sim(yah[1],yah[2].T))
+print()
+print(yah[0])
+print(yah[1].T)
+
+#%% 
+
+
+#%% compare
+
+cosine_similarity(df_users)
+
 #%% csr to coo matrix for fast iterations
 
 cx = scipy.sparse.coo_matrix(Y)
