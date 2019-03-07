@@ -36,7 +36,7 @@ lawl = np.array(lawl)
 print(type(lawl))
 
 # print(np.dot(a[1],a[2].T))
-print(np.dot(a,a.T))
+print(np.dot(a,a.T)) # seeing if can only get by fancy index of known combos
 #%% 
 print(np.dot(a, a.T).diagonal())
 
