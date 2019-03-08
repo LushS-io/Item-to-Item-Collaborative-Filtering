@@ -146,7 +146,7 @@ print(cosine_mat)
 
 Run_time = end_time - start_time
 print(Run_time)
-# %%
+# %% for comparison purpose ;)
 start = time.time()
 
 test = cosine_similarity(Y)
