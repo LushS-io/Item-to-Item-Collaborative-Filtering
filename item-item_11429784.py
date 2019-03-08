@@ -85,7 +85,7 @@ A = Y # carry over normalized matrix to get cosine_similarity
 # replace this with A.dot(A.T).toarray() for sparse representation
 
 # similarity = A.dot(A.T)
-similarity = A.dot(A.T).toarray()
+similarity = A.dot(A.T)
 
 print(similarity)
 
