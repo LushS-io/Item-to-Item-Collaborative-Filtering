@@ -13,7 +13,7 @@ import scipy.sparse as sps
 
 # testing purposes
 # from scipy.spatial.distance import cosine
-# from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.metrics.pairwise import cosine_similarity
 
 # %% another test dataset
 user_1 = np.array([1, 0, 3, 0, 0, 5, 0, 0, 5, 0, 4, 0])
@@ -26,11 +26,11 @@ user_6 = np.array([1, 0, 3, 0, 3, 0, 0, 2, 0, 0, 4, 0])
 pd_df = pd.DataFrame(data=(user_1,user_2,user_3,user_4,user_5,user_6))
 np_mov_rat = sps.csr_matrix(pd_df)
 # %% test dataset
-test_1 = np.array([4, 5, 0, 5, 1, 0])
-test_2 = np.array([0, 3, 4, 3, 1, 2])
-test_3 = np.array([2, 0, 1, 3, 0, 4])
-pd_df = pd.DataFrame(data=(test_1, test_2, test_3))
-np_mov_rat = sps.csr_matrix(pd_df)
+# test_1 = np.array([4, 5, 0, 5, 1, 0])
+# test_2 = np.array([0, 3, 4, 3, 1, 2])
+# test_3 = np.array([2, 0, 1, 3, 0, 4])
+# pd_df = pd.DataFrame(data=(test_1, test_2, test_3))
+# np_mov_rat = sps.csr_matrix(pd_df)
 
 # %% import datasets
 links = pd.read_csv("./movie-lens-data/links.csv")
@@ -65,10 +65,11 @@ df.head()
 # df = df.reset_index().dropna() # drop na
 
 df = df.pivot(index='userId',columns='movieId',values='rating')
+df = df.fillna(0) # fill nan with 0
 print(df)
 
-# %% Create CSR Sparse Matrix *** -----------------------------------
-# csr_mat = scipy.sparse.csr_matrix(df)
+# %% ---------------Create CSR Sparse Matrix *** -----------------------------------
+# csr_mat = scipy.sparse.csr_matrix(df) ### test SWTICH ***
 csr_mat = sps.csr_matrix(np_mov_rat)
 # %% Create small CSR Sparse Matrix for testing
 # csr_mat = scipy.sparse.csr_matrix(np_mov_rat[:5000, ])
@@ -100,7 +101,7 @@ print(Run_time)  # test runtime
 # %%
 csr_mat.shape
 # print(Y.todense())
-# %% get cosine similarity
+# %% ----------- get cosine similarity --------
 
 # np.set_printoptions(threshold=np.inf)
 np.set_printoptions(threshold=1000)
@@ -114,7 +115,7 @@ A = Y  # carry over normalized matrix to get cosine_similarity
 # similarity = A.dot(A.T)
 similarity = A.dot(A.T).toarray()
 
-print(similarity)
+#x print(similarity)
 
 # squared magnitude of preference vectors (number of occurrences)
 # square_mag = np.diag(similarity)
@@ -123,30 +124,39 @@ square_mag = similarity.diagonal()
 # inverse squared magnitude
 inv_square_mag = 1 / square_mag
 # inv_square_mag = sps.linalg.inv(square_mag)
-print(inv_square_mag)
+#x print(inv_square_mag)
 # if it doesn't occur, set it's inverse magnitude to zero (instead of inf)
 inv_square_mag[np.isinf(inv_square_mag)] = 0
-print(inv_square_mag)
+#x print(inv_square_mag)
 
 # inverse of the magnitude
 inv_mag = np.sqrt(inv_square_mag)
 # inv_mag = inv_square_mag.sqrt()
-print(inv_mag)
+#x print(inv_mag)
 # cosine similarity (elementwise multiply by inverse magnitudes)
 cosine = similarity * inv_mag
 cosine = cosine.T * inv_mag
 
 end_time = time.time()
 
-print(cosine)
+# print(np.isfinite(cosine.T).all()) # check if 
+cosine_mat = cosine.T
+print(cosine_mat)
 
 
 Run_time = end_time - start_time
 print(Run_time)
 # %%
+start = time.time()
 
+test = cosine_similarity(Y)
+print(test)
+
+
+end = time.time()
+total = end - start
+print(total)
 
 # %%
-
 
 # %%
