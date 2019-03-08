@@ -1,5 +1,5 @@
 ''' Homework 2 programming portion '''
-#%% imports
+# %% imports
 import pandas as pd
 import numpy as np
 import math as mth
@@ -11,51 +11,51 @@ from scipy.sparse import csr_matrix
 import scipy.sparse as sps
 # import itertools as iter
 
-#testing purposes
+# testing purposes
 # from scipy.spatial.distance import cosine
 # from sklearn.metrics.pairwise import cosine_similarity
 
-#%% test dataset
+# %% test dataset
 test_1 = np.array([4, 5, 0, 5, 1, 0])
 test_2 = np.array([0, 3, 4, 3, 1, 2])
 test_3 = np.array([2, 0, 1, 3, 0, 4])
-pd_df = pd.DataFrame(data=(test_1,test_2,test_3))
+pd_df = pd.DataFrame(data=(test_1, test_2, test_3))
 np_mov_rat = sps.csr_matrix(pd_df)
 
-#%% import datasets
+# %% import datasets
 links = pd.read_csv("./movie-lens-data/links.csv")
 movies = pd.read_csv("./movie-lens-data/movies.csv")
 ratings = pd.read_csv("./movie-lens-data/ratings.csv")
 tags = pd.read_csv("./movie-lens-data/tags.csv")
 
-#%% list attributes
-print(list(movies.columns.values)) #another way to list
+# %% list attributes
+print(list(movies.columns.values))  # another way to list
 print(list(ratings))
 print(list(links))
 print(list(tags))
 
 
-#%% join movies and ratings
+# %% join movies and ratings
 # movies.join(other=ratings,on='movieId',lsuffix="_movies",rsuffix="_ratings")
-df = pd.merge(movies,ratings, on='movieId', how='outer')
+df = pd.merge(movies, ratings, on='movieId', how='outer')
 
-#%% let's see merged df
+# %% let's see merged df
 list(df)
 
-#%% drop all features besides rating
-df_mov_rat = ratings[['rating','movieId']].copy()
-print(df_mov_rat.shape) #check shape
-print(type(df_mov_rat)) #check type
+# %% drop all features besides rating
+df_mov_rat = ratings[['rating', 'movieId']].copy()
+print(df_mov_rat.shape)  # check shape
+print(type(df_mov_rat))  # check type
 
-#%% create np array
-np_mov_rat = df_mov_rat.to_numpy() #create np array
+# %% create np array
+np_mov_rat = df_mov_rat.to_numpy()  # create np array
 
-# %% Create CSR Sparse Matrix *** 
+# %% Create CSR Sparse Matrix ***
 
-csr_mat = scipy.sparse.csr_matrix(np_mov_rat)
+# csr_mat = scipy.sparse.csr_matrix(np_mov_rat)
 
 # %% Create small CSR Sparse Matrix for testing
-# csr_mat = scipy.sparse.csr_matrix(np_mov_rat[:10000,])
+csr_mat = scipy.sparse.csr_matrix(np_mov_rat[:10000, ])
 
 
 # %% get mean of each row
@@ -78,16 +78,15 @@ Y = sps.csr_matrix((X.data - np.repeat(csr_avg, nnz_per_row), X.indices, X.indpt
 # print(Y.T.todense()) #check normalize mat transposed
 end_time = time.time()
 Run_time = end_time - start_time
-print(Run_time) #test runtime
+print(Run_time)  # test runtime
 
 
-
-#%%
+# %%
 csr_mat.shape
 print(Y.todense())
-#%% get cosine similarity
+# %% get cosine similarity
 start_time = time.time()
-A = Y # carry over normalized matrix to get cosine_similarity
+A = Y  # carry over normalized matrix to get cosine_similarity
 
 # base similarity matrix (all dot products)
 # replace this with A.dot(A.T).toarray() for sparse representation
@@ -125,10 +124,10 @@ print(cosine)
 
 Run_time = end_time - start_time
 print(Run_time)
-#%%
+# %%
 
 
-#%%
+# %%
 
 
-#%%
+# %%
