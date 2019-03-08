@@ -15,6 +15,13 @@ import scipy.sparse as sps
 # from scipy.spatial.distance import cosine
 # from sklearn.metrics.pairwise import cosine_similarity
 
+#%% test dataset
+test_1 = np.array([4, 5, 0, 5, 1, 0])
+test_2 = np.array([0, 3, 4, 3, 1, 2])
+test_3 = np.array([2, 0, 1, 3, 0, 4])
+pd_df = pd.DataFrame(data=(test_1,test_2,test_3))
+np_mov_rat = sps.csr_matrix(pd_df)
+
 #%% import datasets
 links = pd.read_csv("./movie-lens-data/links.csv")
 movies = pd.read_csv("./movie-lens-data/movies.csv")
@@ -43,11 +50,12 @@ print(type(df_mov_rat)) #check type
 #%% create np array
 np_mov_rat = df_mov_rat.to_numpy() #create np array
 
-# %% Create CSR Sparse Matrix
-# csr_mat = scipy.sparse.csr_matrix(np_mov_rat)
+# %% Create CSR Sparse Matrix *** 
+
+csr_mat = scipy.sparse.csr_matrix(np_mov_rat)
 
 # %% Create small CSR Sparse Matrix for testing
-csr_mat = scipy.sparse.csr_matrix(np_mov_rat[:100,])
+# csr_mat = scipy.sparse.csr_matrix(np_mov_rat[:10000,])
 
 
 # %% get mean of each row
@@ -85,7 +93,7 @@ A = Y # carry over normalized matrix to get cosine_similarity
 # replace this with A.dot(A.T).toarray() for sparse representation
 
 # similarity = A.dot(A.T)
-similarity = A.dot(A.T)
+similarity = A.dot(A.T).toarray()
 
 print(similarity)
 
@@ -117,4 +125,10 @@ print(cosine)
 
 Run_time = end_time - start_time
 print(Run_time)
+#%%
+
+
+#%%
+
+
 #%%
