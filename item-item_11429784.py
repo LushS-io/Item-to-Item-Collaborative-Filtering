@@ -41,21 +41,26 @@ df = pd.merge(movies, ratings, on='movieId', how='outer')
 
 # %% let's see merged df
 list(df)
-
 # %% drop all features besides rating
-df_mov_rat = ratings[['rating', 'movieId']].copy()
+df_mov_rat = df[['rating', 'movieId', 'userId']].copy()
 print(df_mov_rat.shape)  # check shape
 print(type(df_mov_rat))  # check type
+df_mov_rat.head()
+''' looks like the profile is not in correct format '''
 
-# %% create np array
-np_mov_rat = df_mov_rat.to_numpy()  # create np array
+# %% reshape df into proper matrix
+df = df_mov_rat
+df.head()
 
-# %% Create CSR Sparse Matrix ***
+# df = df.reset_index().dropna() # drop na
 
-# csr_mat = scipy.sparse.csr_matrix(np_mov_rat)
+df = df.pivot(index='userId',columns='movieId',values='rating')
+print(df)
 
+# %% Create CSR Sparse Matrix *** -----------------------------------
+csr_mat = scipy.sparse.csr_matrix(df)
 # %% Create small CSR Sparse Matrix for testing
-csr_mat = scipy.sparse.csr_matrix(np_mov_rat[:10000, ])
+csr_mat = scipy.sparse.csr_matrix(np_mov_rat[:5000, ])
 
 
 # %% get mean of each row
