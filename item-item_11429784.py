@@ -15,6 +15,16 @@ import scipy.sparse as sps
 # from scipy.spatial.distance import cosine
 # from sklearn.metrics.pairwise import cosine_similarity
 
+# %% another test dataset
+user_1 = np.array([1, 0, 3, 0, 0, 5, 0, 0, 5, 0, 4, 0])
+user_2 = np.array([0, 0, 5, 4, 0, 0, 4, 0, 0, 2, 1, 3])
+user_3 = np.array([2, 4, 0, 1, 2, 0, 3, 0, 4, 3, 5, 0])
+user_4 = np.array([0, 2, 4, 0, 5, 0, 0, 4, 0, 0, 2, 0])
+user_5 = np.array([0, 0, 4, 3, 4, 2, 0, 0, 0, 0, 2, 5])
+user_6 = np.array([1, 0, 3, 0, 3, 0, 0, 2, 0, 0, 4, 0])
+
+pd_df = pd.DataFrame(data=(user_1,user_2,user_3,user_4,user_5,user_6))
+np_mov_rat = sps.csr_matrix(pd_df)
 # %% test dataset
 test_1 = np.array([4, 5, 0, 5, 1, 0])
 test_2 = np.array([0, 3, 4, 3, 1, 2])
@@ -58,9 +68,10 @@ df = df.pivot(index='userId',columns='movieId',values='rating')
 print(df)
 
 # %% Create CSR Sparse Matrix *** -----------------------------------
-csr_mat = scipy.sparse.csr_matrix(df)
+# csr_mat = scipy.sparse.csr_matrix(df)
+csr_mat = sps.csr_matrix(np_mov_rat)
 # %% Create small CSR Sparse Matrix for testing
-csr_mat = scipy.sparse.csr_matrix(np_mov_rat[:5000, ])
+# csr_mat = scipy.sparse.csr_matrix(np_mov_rat[:5000, ])
 
 
 # %% get mean of each row
@@ -88,7 +99,7 @@ print(Run_time)  # test runtime
 
 # %%
 csr_mat.shape
-print(Y.todense())
+# print(Y.todense())
 # %% get cosine similarity
 
 # np.set_printoptions(threshold=np.inf)
