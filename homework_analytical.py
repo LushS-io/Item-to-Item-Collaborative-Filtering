@@ -12,9 +12,13 @@ import time as time
 from scipy.sparse import csr_matrix
 import scipy.sparse as sps
 import itertools as iter
+import sklearn.preprocessing as pp
+
 # %% Methods
 """Takes 2 vectors a, b and returns the cosine similarity according to the definition of the dot product"""
-
+def cosine_similar(mat):
+    row_normed_mat = pp.normalize(mat.tocsc(), axis=0)
+    return row_normed_mat.T * row_normed_mat
 
 def cos_sim(a, b):
     dot_product = np.dot(a, b)
@@ -67,6 +71,11 @@ np_sprase = scipy.sparse.csr_matrix(np_users)
 print('before sparse\n{}'.format(users))
 print(np_sprase)
 
+# %% create csc 
+csc_mat = scipy.sparse.csc_matrix(np_users)
+plp=cosine_similar(csc_mat)
+print(plp.todense())
+
 # %% get mean of each row
 (x, y, z) = scipy.sparse.find(np_sprase)
 counts = np.bincount(x)
@@ -90,32 +99,55 @@ print(Y.todense())
 print()
 print(Y.T.todense())
 
-#%% stacktest
-A = Y
+#%% play
+yao = cosine_similar(Y)
+print(yao.todense())
 
-# base similarity matrix (all dot products)
-# replace this with A.dot(A.T).toarray() for sparse representation
+#%% stacktest
+A  =  Y
+
+start = time.time()
+
+## base similarity matrix (all dot products)
+## replace this with A.dot(A.T).toarray() for sparse representation
+
+# similarity = A.dot(A.T)
 similarity = A.dot(A.T).toarray()
 
+print(similarity)
 
-# squared magnitude of preference vectors (number of occurrences)
+## squared magnitude of preference vectors (number of occurrences)
+
 # square_mag = np.diag(similarity)
 square_mag = similarity.diagonal()
+# square_mag = similarity.todia()
 
-# inverse squared magnitude
+print(square_mag)
+print()
+
+end = time.time()
+## inverse squared magnitude
 inv_square_mag = 1 / square_mag
+# inv_square_mag = sps.linalg.inv(square_mag)
 
-# if it doesn't occur, set it's inverse magnitude to zero (instead of inf)
+print(inv_square_mag)
+
+## if it doesn't occur, set it's inverse magnitude to zero (instead of inf)
 inv_square_mag[np.isinf(inv_square_mag)] = 0
 
-# inverse of the magnitude
+## inverse of the magnitude
 inv_mag = np.sqrt(inv_square_mag)
+# inv_mag = inv_square_mag.sqrt()
 
-# cosine similarity (elementwise multiply by inverse magnitudes)
+## cosine similarity (elementwise multiply by inverse magnitudes)
 cosine = similarity * inv_mag
 cosine = cosine.T * inv_mag
 
 print(cosine)
+print(end-start)
+
+#%% another GAH
+print(Y * Y.T)
 
 #%% section D 
 yah = Y.todense()
