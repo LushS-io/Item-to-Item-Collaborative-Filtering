@@ -43,9 +43,6 @@ print(type(df_mov_rat)) #check type
 #%% create np array
 np_mov_rat = df_mov_rat.to_numpy() #create np array
 
-#%% gass
-cosine_similarity(np_mov_rat)
-
 # %% Create CSR Sparse Matrix
 # csr_mat = scipy.sparse.csr_matrix(np_mov_rat)
 
@@ -77,8 +74,9 @@ print(Run_time) #test runtime
 
 
 
-
-
+#%%
+csr_mat.shape
+print(Y.todense())
 #%% get cosine similarity
 start_time = time.time()
 A = Y # carry over normalized matrix to get cosine_similarity
@@ -89,6 +87,7 @@ A = Y # carry over normalized matrix to get cosine_similarity
 # similarity = A.dot(A.T)
 similarity = A.dot(A.T).toarray()
 
+print(similarity)
 
 # squared magnitude of preference vectors (number of occurrences)
 # square_mag = np.diag(similarity)
@@ -97,20 +96,22 @@ square_mag = similarity.diagonal()
 # inverse squared magnitude
 inv_square_mag = 1 / square_mag
 # inv_square_mag = sps.linalg.inv(square_mag)
-
+print(inv_square_mag)
 # if it doesn't occur, set it's inverse magnitude to zero (instead of inf)
 inv_square_mag[np.isinf(inv_square_mag)] = 0
+print(inv_square_mag)
 
 # inverse of the magnitude
 inv_mag = np.sqrt(inv_square_mag)
 # inv_mag = inv_square_mag.sqrt()
-
+print(inv_mag)
 # cosine similarity (elementwise multiply by inverse magnitudes)
 cosine = similarity * inv_mag
 cosine = cosine.T * inv_mag
 
 end_time = time.time()
 
+np.set_printoptions(threshold=np.inf)
 print(cosine)
 
 
