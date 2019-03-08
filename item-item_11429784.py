@@ -90,6 +90,10 @@ print(Run_time)  # test runtime
 csr_mat.shape
 print(Y.todense())
 # %% get cosine similarity
+
+# np.set_printoptions(threshold=np.inf)
+np.set_printoptions(threshold=1000)
+
 start_time = time.time()
 A = Y  # carry over normalized matrix to get cosine_similarity
 
@@ -123,7 +127,6 @@ cosine = cosine.T * inv_mag
 
 end_time = time.time()
 
-np.set_printoptions(threshold=np.inf)
 print(cosine)
 
 
