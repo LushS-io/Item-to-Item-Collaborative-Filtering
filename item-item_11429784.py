@@ -9,11 +9,43 @@ import scipy as scipy
 import time as time
 from scipy.sparse import csr_matrix
 import scipy.sparse as sps
-# import itertools as iter
+import itertools as iter
+# python3 has zip already
 
 # testing purposes
 # from scipy.spatial.distance import cosine
 from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.neighbors import NearestNeighbors
+
+#%% helper func.
+
+
+def adj_to_neighbor_dict(adj):
+    assert hasattr(adj, "__iter__")
+
+    neighbor_dict = collections.defaultdict(lambda: set())
+    for i, j in adj:
+        if i == j:
+            continue
+        neighbor_dict[i].add(j)
+        neighbor_dict[j].add(i)
+    return neighbor_dict
+
+
+def get_neighbors_2d(npmatrix):
+    assert len(npmatrix.shape) == 2
+    I, J = range(npmatrix.shape[0]-1), range(npmatrix.shape[1]-1)
+    adj_set = set(
+        (npmatrix[i, j], npmatrix[i+1, j])
+        for i in I
+        for j in J
+    ) | set(
+        (npmatrix[i, j], npmatrix[i, j+1])
+        for i in I
+        for j in J
+    )
+    return adj_to_neighbor_dict(adj_set)
+
 
 # %% another test dataset
 user_1 = np.array([1, 0, 3, 0, 0, 5, 0, 0, 5, 0, 4, 0])
@@ -157,6 +189,32 @@ end = time.time()
 total = end - start
 print(total)
 
-# %%
+# %% to coo 
+coo_cos = sps.coo_matrix(cosine_mat)
+print(coo_cos)
+
+# %% get nearest neighbors
+knn = 5  # set the num of nearest neighbors to find
+
+def sort_coo(m):
+    tuples = zip(m.row, m.col, m.data)
+    return sorted(tuples, key=lambda x: (x[0], x[2]))
+
+t = sort_coo(coo_cos)
+t = sps.csr_matrix(t)
+print(t.todense())
+
+gah = pd.DataFrame(t.todense())
+print(gah)
+# the idea
+# sort and get the top 5
+# run weighted average on those top 5
 
 # %%
+NearestNeighbors(n_neighbors=5,)
+
+
+
+
+
+#%%
